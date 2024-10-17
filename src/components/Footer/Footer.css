@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+}
+.footer-contacts {
+  width: auto;
+  height: 400px;
+  background-color: #000;
+  padding: 50px 80px 50px;
+  display: flex;
+  color: #ccc;
+  gap: 40px;
+  justify-content: space-evenly;
+}
+
+.footer-card {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 16px;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.footer-top {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.footer-email-input {
+  width: 200px;
+  padding: 10px;
+  color: #c1c1c1;
+  background-color: #000;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.email-send-icon {
+  margin-left: -35px;
+  position: absolute;
+  top: 5px;
+}
+.input {
+  position: relative;
+}
+.discount {
+  font-size: 14px;
+}
+
+.footer-content {
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.footer-download-text {
+  font-size: 12px;
+  color: #7d8184;
+}
+.apps {
+  display: flex;
+  gap: 10px;
+}
+.downloads {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+}
+
+.social-media {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}

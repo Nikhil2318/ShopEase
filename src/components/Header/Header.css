@@ -1,0 +1,91 @@
+.header {
+  display: flex;
+  margin: 20px 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.shopEase-link {
+  cursor: pointer;
+}
+
+.nav-link {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  margin: 0 10px;
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%; /* Start at the middle */
+  background-color: #db4444;
+  transform: translateX(-50%); /* Center the underline */
+  transition: width 0.3s ease;
+}
+
+.heart-icon {
+  cursor: pointer;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.pages {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.wish-list-count {
+  display: inline-block;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  position: relative;
+  top: -12px;
+  color: #fff;
+  border-radius: 50%;
+  background-color: #db4444;
+  left: -5px;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.search-bar {
+  padding: 6px;
+  border-radius: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  font-family: Poppins;
+}
+.search-icon {
+  color: #666;
+  cursor: pointer;
+  position: relative;
+  left: -36px;
+  width: 18px;
+  height: 18px;
+}
+hr {
+  border: none;
+  border-top: 2px solid #ccc; /* Set thickness and color */
+  margin-top: 10px;
+  width: 100%; /* Makes the line stretch across the container */
+}

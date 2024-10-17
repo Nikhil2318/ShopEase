@@ -1,0 +1,98 @@
+.sign-up-component {
+  margin: 35px 0 35px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.side-img {
+  width: 50%;
+  height: 50%;
+}
+
+.signUp-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.signUp-text {
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.signUp-details > input {
+  padding: 10px 0;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  outline: none; /* Remove the outline when the input is focused */
+  width: 60%;
+  font-size: 16px;
+  margin-bottom: 10px;
+  transition: border-color 0.3s ease-in-out; /* Smooth transition for focus */
+}
+
+.signUp-details > input:focus {
+  border-bottom: 2px solid; /* Change border color on focus */
+}
+
+.signUp-details > button {
+  padding: 15px 20px;
+  background-color: #db4444;
+  color: #fff;
+  width: 65%;
+  border: none;
+  font-size: 17px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.signUp-details > button:hover {
+  background-color: #c63232;
+}
+.signUp-form {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 120px 0;
+}
+
+.signUp-form > h1 {
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: 0.1rem;
+  margin-bottom: 0;
+}
+
+.signUp-via-google {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #c5c5c5;
+  padding: 10px 20px;
+  width: 58%;
+  border-radius: 4px;
+  cursor: pointer;
+  justify-content: center;
+}
+
+.signIn-question {
+  margin-top: 10px;
+  margin-left: 55px;
+}
+
+.logIn {
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.logIn::after {
+  content: "";
+  display: block;
+  margin-top: 3px;
+  border-bottom: 2px solid #ccc;
+  width: 50px;
+  margin-left: 217px;
+}

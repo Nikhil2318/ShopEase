@@ -1,0 +1,17 @@
+/* components/NotFound/NotFound.css */
+.not-found {
+  text-align: center;
+  margin-top: 150px;
+}
+
+.not-found h1 {
+  font-size: 54px;
+  font-weight: 600;
+  color: #db4444; /* Highlight color */
+}
+
+.not-found p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 168px;
+}

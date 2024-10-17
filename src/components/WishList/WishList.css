@@ -1,0 +1,10 @@
+.wishlist {
+  display: flex;
+  margin: 10px 80px 100px;
+  gap: 50px;
+}
+
+.wish-text {
+  margin-left: 20px;
+  margin-top: 50px;
+}

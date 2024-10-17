@@ -1,0 +1,90 @@
+.story {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  margin: 130px 0 120px;
+}
+
+.story-text {
+  width: 50%;
+  margin: 100px 70px;
+}
+
+.story-text > h1 {
+  font-size: 48px;
+  font-weight: 600;
+  color: #000000;
+  letter-spacing: 0.1rem;
+  margin-bottom: 24px;
+}
+
+.story-text > p {
+  font-size: 21px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.fixuters {
+  display: flex;
+  gap: 60px;
+  margin: 130px 200px 100px;
+}
+
+.fixture-box {
+  width: 200px;
+  height: 200px;
+  margin: 0 10px;
+  border: 1px solid #c5c5c5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.fixture-img {
+  padding: 8px;
+  background-color: #000000;
+  border-radius: 50%;
+  border: 15px solid #c5c5c5;
+  margin-bottom: 8px;
+}
+
+.team {
+  display: flex;
+  gap: 10px;
+  margin: 130px 200px 100px;
+  overflow: hidden;
+}
+
+.team-member {
+  text-align: center;
+  margin: 20px;
+}
+
+.human-img {
+  width: 300px; /* Set a fixed width for all images */
+  height: 400px; /* Set a fixed height for all images */
+  background-color: #f5f5f5; /* Apply the background color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px; /* Optional: adds rounded corners */
+  overflow: hidden; /* Ensure the image doesn’t overflow */
+  margin-bottom: 10px;
+}
+
+.human-img img {
+  width: 80%; /* Ensure the image fills the container */
+  height: 80%; /* Maintain the aspect ratio */
+  object-fit: scale-down; /* Ensure the image covers the container */
+}
+
+.slick-dots li button:before {
+  color: #c5c5c5; /* Custom color for dots */
+}
+
+.slick-dots li.slick-active button:before {
+  color: #333; /* Active dot color */
+}
