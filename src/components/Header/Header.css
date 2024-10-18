@@ -32,8 +32,16 @@
   transition: width 0.3s ease;
 }
 
+.nav-link.active {
+  color: #db4444; /* Active link color */
+}
+
+.cart-icon,
 .heart-icon {
   cursor: pointer;
+}
+.heart-icon-2 {
+  position: relative;
 }
 
 .nav-link:hover::after {
@@ -60,6 +68,20 @@
   border-radius: 50%;
   background-color: #db4444;
   left: -5px;
+}
+.cart-list-count {
+  display: inline-block;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  position: absolute;
+  top: -12px;
+  color: #fff;
+  border-radius: 50%;
+  background-color: #db4444;
+  left: 20px;
+  top: 0.1px;
 }
 
 .icons {

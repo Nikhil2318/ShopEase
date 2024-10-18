@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleWishlistItem } from "../../redux/wishlistSlice";
 import { setProducts } from "../../redux/productsSlice"; // Import setProducts action
 import "./WishList.css";
+import { useNavigate } from "react-router-dom";
 
 function WishList() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products); // Fetch products from Redux store
   const wishList = useSelector((state) => state.wishlist.wishList); // Fetch wishlist from Redux store
 
+  const navigate = useNavigate();
   // UseEffect to fetch products and set them in the Redux store
   useEffect(() => {
     const fetchProducts = async () => {
@@ -54,6 +56,7 @@ function WishList() {
                 src={product.image}
                 alt={product.title}
                 className="product-image"
+                onClick={() => navigate(`product/${product.id}`)}
               />
               <div className="product-info">
                 <p className="product-title">{product.title}</p>

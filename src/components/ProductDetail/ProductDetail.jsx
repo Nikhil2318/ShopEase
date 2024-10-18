@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./ProductDetail.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleWishlistItem } from "../../redux/wishlistSlice.js";
+import { addToCart } from "../../redux/cartlistSlice.js"; // Import the addToCart action
+import heartSmall from "../../assets/icons/heart-small.png";
+import heartRedSmall from "../../assets/icons/heart-red.png";
+import ripple from "../Loading/ripple.svg";
+import iconDelivery from "../../assets/icons/icon-delivery-2.png";
+import iconReturn from "../../assets/icons/Icon-return.png";
 
 function ProductDetail() {
   const { id } = useParams();
@@ -10,8 +16,13 @@ function ProductDetail() {
   const [categoryProducts, setCategoryProducts] = useState([]);
   const dispatch = useDispatch();
   const wishList = useSelector((state) => state.wishlist.wishList);
-
+  const navigate = useNavigate();
   console.log("categoryProducts", categoryProducts);
+
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const [quantity, setQuantity] = useState(1);
 
@@ -37,6 +48,20 @@ function ProductDetail() {
 
   const handleSizeClick = (size) => {
     setSelectedSize(size);
+  };
+
+  // Add to Cart function
+  const handleAddToCart = () => {
+    const cartItem = {
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      image: product.image,
+      quantity: quantity, // Use selected quantity
+      selectedColor,
+      selectedSize,
+    };
+    dispatch(addToCart(cartItem)); // Dispatch addToCart action
   };
 
   useEffect(() => {
@@ -158,14 +183,16 @@ function ProductDetail() {
                 +
               </button>
             </div>
-            <button className="add-to-cart-btn-2">Buy Now</button>
+            <button onClick={handleAddToCart} className="add-to-cart-btn-2">
+              Add to Cart
+            </button>
           </div>
 
           <div className="product-delivery">
             <div className="product-delivery-card">
               <div className="delivery-img-2">
                 <img
-                  src="./icons/icon-delivery.png"
+                  src={iconDelivery}
                   alt="icon_delivery"
                   className="delivery-icon"
                 />
@@ -180,7 +207,7 @@ function ProductDetail() {
             <div className="product-delivery-card">
               <div className="delivery-img-2">
                 <img
-                  src="./icons/Icon-return.png"
+                  src={iconReturn}
                   alt="return-icon"
                   className="delivery-icon"
                 />
@@ -207,6 +234,7 @@ function ProductDetail() {
                   src={item.image}
                   alt={item.title}
                   className="product-image"
+                  onClick={() => navigate(`/product/${item.id}`)}
                 />
 
                 <div className="view-icons">
@@ -215,9 +243,9 @@ function ProductDetail() {
                     onClick={() => handleWishlistToggle(item.id)}
                   >
                     {wishList.includes(item.id) ? (
-                      <img src="./icons/heart-red.png" alt="heart-icon" />
+                      <img src={heartRedSmall} alt="heart-icon" />
                     ) : (
-                      <img src="./icons/heart-small.png" alt="heart-icon" />
+                      <img src={heartSmall} alt="heart-icon" />
                     )}
                   </div>
                 </div>
@@ -227,12 +255,28 @@ function ProductDetail() {
                   <div className="price-rating-section">
                     <p className="product-price">${item.price}</p>
                   </div>
-                  <button className="add-to-cart-btn">Add to Cart</button>
+                  <button
+                    onClick={() =>
+                      dispatch(addToCart({ ...item, quantity: 1 }))
+                    }
+                    className="add-to-cart-btn"
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             ))
           ) : (
-            <p>Loading related products...</p>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <img style={{ width: "100px" }} src={ripple} />
+            </div>
           )}
         </div>
       </div>

@@ -4,7 +4,13 @@ import "./Header.css";
 import { useSelector } from "react-redux";
 function Header() {
   const navigate = useNavigate();
-  const wishListSize = useSelector((state) => state.wishlist.wishList.length);
+  const wishListSize = useSelector(
+    (state) => state.wishlist?.wishList.length || 0
+  );
+  const totalQuantity = useSelector((state) => {
+    console.log("Current Redux State:", state);
+    return state.cartlist?.totalQuantity || 0;
+  });
 
   return (
     <>
@@ -36,7 +42,7 @@ function Header() {
           <div className="heart-icon">
             <img
               src="/icons/Heart.png"
-              alt=""
+              alt="heart_icon"
               className="heart-icon"
               onClick={() => navigate("/wish-list")}
             />
@@ -44,7 +50,17 @@ function Header() {
               <span className="wish-list-count">{wishListSize}</span>
             )}
           </div>
-          <img src="/icons/Cart.png" alt="" className="cart-icon" />
+          <div className="heart-icon-2">
+            <img
+              src="/icons/Cart.png"
+              alt="cart-_icon"
+              className="cart-icon"
+              onClick={() => navigate("/cart-list")}
+            />
+            {totalQuantity > 0 && (
+              <span className="cart-list-count">{totalQuantity}</span>
+            )}
+          </div>
         </div>
       </div>
       <hr />

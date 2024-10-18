@@ -11,6 +11,7 @@ import NotFound from "./components/NotFound/NotFound";
 import WishList from "./components/WishList/WishList";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import store from "./redux/store";
+import Cart from "./components/Cart/Cart";
 
 function App() {
   return (
@@ -24,8 +25,11 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/cart-list" element={<Cart />} />
           <Route path="/wish-list" element={<WishList />} />
           <Route path="/product/:id" element={<ProductDetail />} />
+          {/* <Route path="/:id" element={<ProductDetail />} /> */}
+          <Route path="/wish-list/product/:id" element={<ProductDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 

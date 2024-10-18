@@ -3,7 +3,12 @@ import "./Sales.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleWishlistItem } from "../../redux/wishlistSlice.js";
-
+import ripple from "../Loading/ripple.svg";
+import {
+  addToCart,
+  removeFromCart,
+  updateCartQuantity,
+} from "../../redux/cartlistSlice.js"; // Make sure to import from the correct path
 const targetDate = new Date().getTime() + 4 * 24 * 60 * 60 * 1000;
 
 function Sales() {
@@ -15,9 +20,51 @@ function Sales() {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const wishList = useSelector((state) => state.wishlist.wishList);
+  const cartItems = useSelector((state) => state.cartlist.items);
 
   const handleWishlistToggle = (productId) => {
     dispatch(toggleWishlistItem(productId));
+  };
+
+  const handleAddToCart = (product) => {
+    console.log("Adding product to cart:", product);
+    dispatch(
+      addToCart({
+        title: product.title,
+        image: product.image,
+        id: product.id,
+        price: product.price,
+        quantity: product.quantity || 1,
+      })
+    ); // Adjust quantity as needed
+  };
+
+  const handleIncrement = (product) => {
+    // Dispatch an action to increase the quantity in the cart
+    dispatch(
+      addToCart({
+        id: product.id,
+        price: product.price,
+        quantity: 1, // Add 1 to the current quantity
+      })
+    );
+  };
+
+  const handleDecrement = (product) => {
+    const cartItem = cartItems.find((item) => item.id === product.id);
+
+    if (cartItem && cartItem.quantity > 1) {
+      // Dispatch action to decrease quantity by 1
+      dispatch(
+        updateCartQuantity({
+          id: product.id,
+          quantity: cartItem.quantity - 1,
+        })
+      );
+    } else {
+      // Optionally, handle removing item from cart if quantity becomes 0
+      dispatch(removeFromCart(product.id));
+    }
   };
 
   const categories = [
@@ -100,43 +147,87 @@ function Sales() {
 
       <div className="product-details">
         {products.length > 0 ? (
-          products.map((product) => (
-            <div key={product.id} className="product-card">
-              <img
-                src={product.image}
-                alt={product.title}
-                className="product-image"
-                onClick={() => navigate(`product/${product.id}`)}
-              />
-              <div className="view-icons">
-                <div
-                  className="icon"
-                  onClick={() => handleWishlistToggle(product.id)}
-                >
-                  {wishList.includes(product.id) ? (
-                    <img src="./icons/heart-red.png" alt="heart-icon" />
-                  ) : (
-                    <img src="./icons/heart-small.png" alt="heart-icon" />
-                  )}
-                </div>
-              </div>
-              <div className="product-info">
-                <p className="product-title">{product.title}</p>
-                <div className="price-rating-section">
-                  <p className="product-price">${product.price}</p>
-                  <div className="rating">
-                    {renderstars(product.rating.rate)}{" "}
-                    <span className="rating-count">{`(${product.rating.count})`}</span>
+          products.map((product) => {
+            // Check if the product is in the cart
+            const cartItem = cartItems.find((item) => item.id === product.id);
+            const quantityInCart = cartItem ? cartItem.quantity : 0; // Get the quantity if in the cart
+
+            return (
+              <div key={product.id} className="product-card">
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  className="product-image"
+                  onClick={() => navigate(`product/${product.id}`)}
+                />
+                <div className="view-icons">
+                  <div
+                    className="icon"
+                    onClick={() => handleWishlistToggle(product.id)}
+                  >
+                    {wishList.includes(product.id) ? (
+                      <img src="./icons/heart-red.png" alt="heart-icon" />
+                    ) : (
+                      <img src="./icons/heart-small.png" alt="heart-icon" />
+                    )}
                   </div>
                 </div>
-                <button className="add-to-cart-btn">Add to Cart</button>
+                <div className="product-info">
+                  <p className="product-title">{product.title}</p>
+                  <div className="price-rating-section">
+                    <p className="product-price">${product.price}</p>
+                    <div className="rating">
+                      {renderstars(product.rating.rate)}{" "}
+                      <span className="rating-count">{`(${product.rating.count})`}</span>
+                    </div>
+                  </div>
+
+                  <div className="add-to-cart-section">
+                    {quantityInCart > 0 ? (
+                      <div className="quantity-controls">
+                        <button
+                          className="quantity-btn"
+                          onClick={() => handleDecrement(product)}
+                        >
+                          -
+                        </button>
+                        <span className="quantity-display">
+                          {quantityInCart}
+                        </span>
+                        <button
+                          className="quantity-btn"
+                          onClick={() => handleIncrement(product)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        className="add-to-cart-btn"
+                        onClick={() => handleAddToCart(product)}
+                      >
+                        Add to Cart
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          ))
+            );
+          })
         ) : (
-          <p>Loading products...</p>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <img style={{ width: "100px" }} src={ripple} />
+          </div>
         )}
       </div>
+
       <button className="view-products-btn">View All Products</button>
       <hr className="end-line" />
 
@@ -178,39 +269,77 @@ function Sales() {
             products
               .sort((a, b) => b.rating.count - a.rating.count)
               .slice(0, 6)
-              .map((product) => (
-                <div key={product.id} className="product-card best-selling">
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="product-image"
-                  />
-                  <div className="view-icons">
-                    <div
-                      className="icon"
-                      onClick={() => handleWishlistToggle(product.id)}
-                    >
-                      {wishList.includes(product.id) ? (
-                        <img src="./icons/heart-red.png" alt="heart-icon" />
-                      ) : (
-                        <img src="./icons/heart-small.png" alt="heart-icon" />
-                      )}
-                    </div>
-                  </div>
-                  <div className="product-info">
-                    <p className="product-title">{product.title}</p>
-                    <div className="price-rating-section">
-                      <p className="product-price">${product.price}</p>
-                      <div className="rating">
-                        {renderstars(product.rating.rate)}{" "}
-                        <span className="rating-count">{`(${product.rating.count})`}</span>
+              .map((product) => {
+                // Check if the product is in the cart
+                const cartItem = cartItems.find(
+                  (item) => item.id === product.id
+                );
+                const quantityInCart = cartItem ? cartItem.quantity : 0; // Get quantity if in cart
+
+                return (
+                  <div key={product.id} className="product-card best-selling">
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="product-image"
+                      onClick={() => navigate(`product/${product.id}`)}
+                    />
+                    <div className="view-icons">
+                      <div
+                        className="icon"
+                        onClick={() => handleWishlistToggle(product.id)}
+                      >
+                        {wishList.includes(product.id) ? (
+                          <img src="./icons/heart-red.png" alt="heart-icon" />
+                        ) : (
+                          <img src="./icons/heart-small.png" alt="heart-icon" />
+                        )}
                       </div>
                     </div>
-                    <button className="add-to-cart-btn">Add to Cart</button>
+                    <div className="product-info">
+                      <p className="product-title">{product.title}</p>
+                      <div className="price-rating-section">
+                        <p className="product-price">${product.price}</p>
+                        <div className="rating">
+                          {renderstars(product.rating.rate)}{" "}
+                          <span className="rating-count">{`(${product.rating.count})`}</span>
+                        </div>
+                      </div>
+
+                      <div className="add-to-cart-section">
+                        {quantityInCart > 0 ? (
+                          <div className="quantity-controls">
+                            <button
+                              className="quantity-btn"
+                              onClick={() => handleDecrement(product)}
+                            >
+                              -
+                            </button>
+                            <span className="quantity-display">
+                              {quantityInCart}
+                            </span>
+                            <button
+                              className="quantity-btn"
+                              onClick={() => handleIncrement(product)}
+                            >
+                              +
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            className="add-to-cart-btn"
+                            onClick={() => handleAddToCart(product)}
+                          >
+                            Add to Cart
+                          </button>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
         </div>
+
         <div className="jbl-img">
           <img src="./icons/jbl.png" alt="" />
         </div>
@@ -218,7 +347,7 @@ function Sales() {
           <div className="end-card">
             <div className="delivery-img">
               <img
-                src="./icons/icon-delivery.png"
+                src="./icons/icon-delivery-3.png"
                 alt="icon_delivery"
                 className="delivery-icon"
               />

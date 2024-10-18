@@ -1,0 +1,89 @@
+.cart {
+  margin: 20px;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: separate; /* Change to separate to allow spacing */
+  border-spacing: 0 10px; /* Adds space between rows */
+}
+
+.cart-table th,
+.cart-table td {
+  padding: 10px;
+  text-align: left;
+  background-color: white; /* Optional: background for better visibility */
+}
+
+.cart-item-image {
+  width: 50px; /* Set a specific width for the product image */
+  height: auto;
+}
+
+.cart-summary {
+  margin-top: 20px;
+}
+
+.cart-buttons {
+  margin-top: 20px;
+}
+
+/* Optional: styling for rows */
+.cart-table tr {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+}
+
+.return-button,
+.checkout-button {
+  padding: 13px 25px;
+  margin-right: 10px;
+  margin-top: 30px;
+  border: none;
+  cursor: pointer;
+  background-color: #dd4444; /* Bootstrap primary color */
+  color: white;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+.return-button:hover,
+.checkout-button:hover {
+  background-color: #bd3a3a; /* Darker shade on hover */
+}
+
+.card-div {
+  display: flex;
+  justify-content: end;
+  padding: 30px;
+}
+.card-total {
+  width: 30%;
+  padding: 20px;
+  border: 2px solid;
+  border-radius: 4px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+.card-total-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+hr {
+  border: none;
+  border-top: 2px solid #ccc; /* Set thickness and color */
+  margin-top: 10px;
+  margin-bottom: 5px;
+  width: 100%; /* Makes the line stretch across the container */
+}
+
+.delete-product {
+  cursor: pointer;
+  position: absolute;
+  top: -8px;
+  left: -1px;
+}
+
+td {
+  position: relative;
+}

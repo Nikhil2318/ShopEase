@@ -165,8 +165,8 @@
   padding: 10px;
   text-align: center;
   margin-right: 10px;
-  width: 200px;
-  height: 322px;
+  width: 220px;
+  height: 330px;
   transition: box-shadow 0.3s;
   box-sizing: border-box;
   position: relative;
@@ -241,6 +241,10 @@
   margin-top: 10px;
 }
 
+.add-to-cart-btn:hover {
+  background-color: #db4444;
+  color: #fff;
+}
 .rating-count {
   font-size: 12px;
   color: #666;
@@ -250,6 +254,45 @@
   width: 95%;
   margin: 20px auto;
   margin-bottom: 35px;
+}
+
+.add-to-cart-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px; /* Add space above the section */
+}
+
+.add-to-cart-section {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  margin-top: 15px;
+}
+
+.quantity-btn {
+  background-color: #db4444; /* Bootstrap primary color */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 20px;
+  margin: 0 16px;
+}
+
+.quantity-btn:hover {
+  background-color: #b83c3e; /* Darker shade on hover */
+}
+
+.quantity-display {
+  font-size: 18px;
 }
 
 .best-selling-text {
