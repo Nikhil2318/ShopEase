@@ -4,7 +4,7 @@ This is a simple e-commerce web application built using React and the Fake Store
 
 ## Live Demo
 
-You can see the live application [ShopEase] (https://shop-ease-hazel.vercel.app).
+You can see the live application by clicking on **[ShopEase](https://shop-ease-hazel.vercel.app)**.
 
 ## Features
 
