@@ -3,12 +3,13 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./ProductDetail.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleWishlistItem } from "../../redux/wishlistSlice.js";
-import { addToCart } from "../../redux/cartlistSlice.js"; // Import the addToCart action
+import { addToCart } from "../../redux/cartlistSlice.js";
 import heartSmall from "../../assets/icons/heart-small.png";
 import heartRedSmall from "../../assets/icons/heart-red.png";
 import ripple from "../Loading/ripple.svg";
 import iconDelivery from "../../assets/icons/icon-delivery-2.png";
 import iconReturn from "../../assets/icons/Icon-return.png";
+import toast from "react-hot-toast";
 
 function ProductDetail() {
   const { id } = useParams();
@@ -34,38 +35,42 @@ function ProductDetail() {
     setQuantity((prevQuantity) => Math.max(1, prevQuantity - 1));
   };
 
-  const [selectedColor, setSelectedColor] = useState(null); // Track selected color
+  const [selectedColor, setSelectedColor] = useState(null);
 
   const handleColorClick = (color) => {
-    setSelectedColor(color); // Update the selected color
+    setSelectedColor(color);
   };
 
   const handleWishlistToggle = (productId) => {
     dispatch(toggleWishlistItem(productId));
   };
 
-  const [selectedSize, setSelectedSize] = useState(null); // Track selected size
+  const [selectedSize, setSelectedSize] = useState(null);
 
   const handleSizeClick = (size) => {
     setSelectedSize(size);
   };
 
-  // Add to Cart function
+  const handleAddToCart2 = (item) => {
+    dispatch(addToCart({ ...item, quantity: 1 }));
+    toast.success("Added to cart");
+  };
+
   const handleAddToCart = () => {
     const cartItem = {
       id: product.id,
       title: product.title,
       price: product.price,
       image: product.image,
-      quantity: quantity, // Use selected quantity
+      quantity: quantity,
       selectedColor,
       selectedSize,
     };
-    dispatch(addToCart(cartItem)); // Dispatch addToCart action
+    dispatch(addToCart(cartItem));
+    toast.success("added to cart");
   };
 
   useEffect(() => {
-    // Fetch product details using the ID
     fetch(`https://fakestoreapi.com/products/${id}`)
       .then((response) => response.json())
       .then((data) => {
@@ -256,9 +261,7 @@ function ProductDetail() {
                     <p className="product-price">${item.price}</p>
                   </div>
                   <button
-                    onClick={() =>
-                      dispatch(addToCart({ ...item, quantity: 1 }))
-                    }
+                    onClick={() => handleAddToCart2(item)}
                     className="add-to-cart-btn"
                   >
                     Add to Cart

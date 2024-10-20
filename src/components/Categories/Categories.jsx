@@ -3,7 +3,6 @@ function Categories() {
   return (
     <div className="categories-container">
       {" "}
-      {/* Added a container div */}
       <div className="catergory">
         <span>Women Fashion</span>
         <span>Men Fashion</span>
@@ -16,7 +15,7 @@ function Categories() {
         <span>Health & Beauty</span>
       </div>
       <span className="vertical-line"></span>
-      <img src="./icons/apple-img.png" alt="apple_img" className="apple-img"/>
+      <img src="./icons/apple-img.png" alt="apple_img" className="apple-img" />
     </div>
   );
 }

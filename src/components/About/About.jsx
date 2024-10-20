@@ -1,17 +1,8 @@
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import "./About.css";
 function About() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3, // Number of slides visible at a time
-    slidesToScroll: 1, // Number of slides to scroll on arrow or dot click
-  };
-
   return (
     <>
       <div className="story">

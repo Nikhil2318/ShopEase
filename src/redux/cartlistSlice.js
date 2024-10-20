@@ -4,39 +4,33 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: {
     items: [],
-    totalQuantity: 0, // Initialize to 0
-    totalPrice: 0, // Initialize to 0
+    totalQuantity: 0,
+    totalPrice: 0,
   },
   reducers: {
     addToCart: (state, action) => {
       console.log("Current state before adding:", JSON.stringify(state));
       console.log("Payload being added:", action.payload);
 
-      // Look for the existing item by its id
       const existingItem = state.items.find(
         (item) => item.id === action.payload.id
       );
 
       if (existingItem) {
-        // If found, increment the quantity
         existingItem.quantity += action.payload.quantity;
       } else {
-        // If not found, create a new item entry
         const newItem = {
           title: action.payload.title,
           image: action.payload.image,
           id: action.payload.id,
           price: action.payload.price,
-          quantity: action.payload.quantity || 1, // Ensure quantity defaults to 1 if undefined
+          quantity: action.payload.quantity || 1,
         };
-        state.items.push(newItem); // Add new item to the items array
+        state.items.push(newItem);
       }
 
-      // Update total quantity and total price
-      state.totalQuantity += action.payload.quantity || 1; // Ensure this adds up correctly
-      state.totalPrice += action.payload.price * (action.payload.quantity || 1); // Ensure this adds up correctly
-
-      console.log("Updated state after adding:", JSON.stringify(state));
+      state.totalQuantity += action.payload.quantity || 1;
+      state.totalPrice += action.payload.price * (action.payload.quantity || 1);
     },
     removeFromCart(state, action) {
       const id = action.payload;
@@ -53,11 +47,9 @@ const cartSlice = createSlice({
       const existingItem = state.items.find((item) => item.id === id);
 
       if (existingItem) {
-        // Update quantity
         const quantityDifference = quantity - existingItem.quantity;
         existingItem.quantity = quantity;
 
-        // Update totals
         state.totalQuantity += quantityDifference;
         state.totalPrice += existingItem.price * quantityDifference;
       }

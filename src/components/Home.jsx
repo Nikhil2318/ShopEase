@@ -10,10 +10,8 @@ function Home() {
   }, [pathname]);
   return (
     <div>
-      {/* <Header /> */}
       <Categories />
       <Sales />
-      {/* <Footer /> */}
     </div>
   );
 }

@@ -2,24 +2,26 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   removeFromCart,
   updateCartQuantity,
-} from "../../redux/cartlistSlice.js"; // Import your remove and update actions
-import "./Cart.css"; // Import a CSS file if you want to style the cart
+} from "../../redux/cartlistSlice.js";
+import "./Cart.css";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Cart() {
-  const dispatch = useDispatch(); // Use dispatch to call Redux actions
+  const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cartlist.items);
   const totalQuantity = useSelector((state) => state.cartlist.totalQuantity);
   const totalPrice = useSelector((state) => state.cartlist.totalPrice);
   const navigate = useNavigate();
 
   const handleRemoveItem = (id) => {
-    dispatch(removeFromCart(id)); // Dispatch the action to remove the item
+    dispatch(removeFromCart(id));
+    toast.success("Item removed from cart!");
   };
 
   const handleQuantityChange = (id, quantity) => {
-    if (quantity < 1) return; // Prevent negative quantities
-    dispatch(updateCartQuantity({ id, quantity })); // Dispatch the action to update quantity
+    if (quantity < 1) return;
+    dispatch(updateCartQuantity({ id, quantity }));
   };
 
   return (
@@ -44,11 +46,11 @@ function Cart() {
                   <tr key={item.id} className="cart-item">
                     <td>
                       <div
-                        onClick={() => handleRemoveItem(item.id)} // Remove item on click
+                        onClick={() => handleRemoveItem(item.id)}
                         style={{
                           color: "#dd4444",
                           cursor: "pointer",
-                          fontSize: "20px", // Adjust font size as needed
+                          fontSize: "20px",
                           marginBottom: "5px",
                         }}
                         className="delete-product"
@@ -69,12 +71,8 @@ function Cart() {
                         value={item.quantity}
                         min="1"
                         className="quantity-input"
-                        onChange={
-                          (e) =>
-                            handleQuantityChange(
-                              item.id,
-                              Number(e.target.value)
-                            ) // Update quantity
+                        onChange={(e) =>
+                          handleQuantityChange(item.id, Number(e.target.value))
                         }
                       />
                     </td>

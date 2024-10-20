@@ -11,5 +11,5 @@
 }
 
 .content {
-  flex: 1; /* This makes the content grow and push the footer down */
+  flex: 1;
 }

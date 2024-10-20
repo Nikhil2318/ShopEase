@@ -1,23 +1,22 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleWishlistItem } from "../../redux/wishlistSlice";
-import { setProducts } from "../../redux/productsSlice"; // Import setProducts action
+import { setProducts } from "../../redux/productsSlice";
 import "./WishList.css";
 import { useNavigate } from "react-router-dom";
 
 function WishList() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products.products); // Fetch products from Redux store
-  const wishList = useSelector((state) => state.wishlist.wishList); // Fetch wishlist from Redux store
+  const products = useSelector((state) => state.products.products);
+  const wishList = useSelector((state) => state.wishlist.wishList);
 
   const navigate = useNavigate();
-  // UseEffect to fetch products and set them in the Redux store
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await fetch("https://fakestoreapi.com/products");
         const data = await response.json();
-        dispatch(setProducts(data)); // Dispatch action to set products in Redux store
+        dispatch(setProducts(data));
       } catch (error) {
         console.error(error);
       }
@@ -26,7 +25,6 @@ function WishList() {
     fetchProducts();
   }, [dispatch]);
 
-  // Filter products based on the wishlist IDs
   const wishListedProducts = products.filter((product) =>
     wishList.includes(product.id)
   );
@@ -47,7 +45,6 @@ function WishList() {
         <span className="today-text">Wishlist</span>
       </div>
 
-      {/* Render Wishlist Section */}
       <div className="wishlist">
         {wishListedProducts.length > 0 ? (
           wishListedProducts.map((product) => (
@@ -69,7 +66,7 @@ function WishList() {
                 </div>
                 <button
                   className="add-to-cart-btn"
-                  onClick={() => dispatch(toggleWishlistItem(product.id))} // Toggle wishlist item
+                  onClick={() => dispatch(toggleWishlistItem(product.id))}
                 >
                   Remove from Wishlist
                 </button>

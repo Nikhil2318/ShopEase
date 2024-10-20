@@ -12,10 +12,14 @@ import WishList from "./components/WishList/WishList";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import store from "./redux/store";
 import Cart from "./components/Cart/Cart";
+import { Toaster } from "react-hot-toast";
+import Checkout from "./components/Checkout/Checkout";
 
 function App() {
   return (
     <Provider store={store}>
+      <Toaster position="top-left" reverseOrder={false} />
+
       <Router>
         <Header />
 
@@ -28,7 +32,7 @@ function App() {
           <Route path="/cart-list" element={<Cart />} />
           <Route path="/wish-list" element={<WishList />} />
           <Route path="/product/:id" element={<ProductDetail />} />
-          {/* <Route path="/:id" element={<ProductDetail />} /> */}
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/wish-list/product/:id" element={<ProductDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

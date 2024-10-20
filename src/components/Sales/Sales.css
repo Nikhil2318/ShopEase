@@ -72,7 +72,7 @@
 }
 
 .view-icons {
-  cursor: pointer; /* Make it clickable */
+  cursor: pointer;
 }
 
 .icon {
@@ -260,7 +260,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 10px; /* Add space above the section */
+  margin-top: 10px;
 }
 
 .add-to-cart-section {
@@ -277,7 +277,7 @@
 }
 
 .quantity-btn {
-  background-color: #db4444; /* Bootstrap primary color */
+  background-color: #db4444;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -288,7 +288,7 @@
 }
 
 .quantity-btn:hover {
-  background-color: #b83c3e; /* Darker shade on hover */
+  background-color: #b83c3e;
 }
 
 .quantity-display {

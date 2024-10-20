@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleWishlistItem } from "../../redux/wishlistSlice.js";
 import ripple from "../Loading/ripple.svg";
+import toast from "react-hot-toast";
+
 import {
   addToCart,
   removeFromCart,
   updateCartQuantity,
-} from "../../redux/cartlistSlice.js"; // Make sure to import from the correct path
+} from "../../redux/cartlistSlice.js";
 const targetDate = new Date().getTime() + 4 * 24 * 60 * 60 * 1000;
 
 function Sales() {
@@ -26,8 +28,16 @@ function Sales() {
     dispatch(toggleWishlistItem(productId));
   };
 
+  const handleClick = (product) => {
+    handleWishlistToggle(product.id);
+
+    if (wishList.includes(product.id)) {
+      toast.success("Removed from favorites");
+    } else {
+      toast.success("Added to favorites");
+    }
+  };
   const handleAddToCart = (product) => {
-    console.log("Adding product to cart:", product);
     dispatch(
       addToCart({
         title: product.title,
@@ -36,16 +46,16 @@ function Sales() {
         price: product.price,
         quantity: product.quantity || 1,
       })
-    ); // Adjust quantity as needed
+    );
+    toast.success("Added to cart");
   };
 
   const handleIncrement = (product) => {
-    // Dispatch an action to increase the quantity in the cart
     dispatch(
       addToCart({
         id: product.id,
         price: product.price,
-        quantity: 1, // Add 1 to the current quantity
+        quantity: 1,
       })
     );
   };
@@ -54,7 +64,6 @@ function Sales() {
     const cartItem = cartItems.find((item) => item.id === product.id);
 
     if (cartItem && cartItem.quantity > 1) {
-      // Dispatch action to decrease quantity by 1
       dispatch(
         updateCartQuantity({
           id: product.id,
@@ -62,7 +71,6 @@ function Sales() {
         })
       );
     } else {
-      // Optionally, handle removing item from cart if quantity becomes 0
       dispatch(removeFromCart(product.id));
     }
   };
@@ -148,9 +156,8 @@ function Sales() {
       <div className="product-details">
         {products.length > 0 ? (
           products.map((product) => {
-            // Check if the product is in the cart
             const cartItem = cartItems.find((item) => item.id === product.id);
-            const quantityInCart = cartItem ? cartItem.quantity : 0; // Get the quantity if in the cart
+            const quantityInCart = cartItem ? cartItem.quantity : 0;
 
             return (
               <div key={product.id} className="product-card">
@@ -161,10 +168,7 @@ function Sales() {
                   onClick={() => navigate(`product/${product.id}`)}
                 />
                 <div className="view-icons">
-                  <div
-                    className="icon"
-                    onClick={() => handleWishlistToggle(product.id)}
-                  >
+                  <div className="icon" onClick={() => handleClick(product)}>
                     {wishList.includes(product.id) ? (
                       <img src="./icons/heart-red.png" alt="heart-icon" />
                     ) : (
@@ -249,7 +253,7 @@ function Sales() {
               <img
                 src={category.icon}
                 alt={`${category.name}_img`}
-                className={category.id === 4 ? "camera-icon" : ""} // Add class conditionally for Camera
+                className={category.id === 4 ? "camera-icon" : ""}
               />
               <p className="camera-name">{category.name}</p>
             </div>
@@ -270,11 +274,10 @@ function Sales() {
               .sort((a, b) => b.rating.count - a.rating.count)
               .slice(0, 6)
               .map((product) => {
-                // Check if the product is in the cart
                 const cartItem = cartItems.find(
                   (item) => item.id === product.id
                 );
-                const quantityInCart = cartItem ? cartItem.quantity : 0; // Get quantity if in cart
+                const quantityInCart = cartItem ? cartItem.quantity : 0;
 
                 return (
                   <div key={product.id} className="product-card best-selling">

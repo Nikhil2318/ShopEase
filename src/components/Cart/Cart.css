@@ -4,19 +4,19 @@
 
 .cart-table {
   width: 100%;
-  border-collapse: separate; /* Change to separate to allow spacing */
-  border-spacing: 0 10px; /* Adds space between rows */
+  border-collapse: separate;
+  border-spacing: 0 10px;
 }
 
 .cart-table th,
 .cart-table td {
   padding: 10px;
   text-align: left;
-  background-color: white; /* Optional: background for better visibility */
+  background-color: white;
 }
 
 .cart-item-image {
-  width: 50px; /* Set a specific width for the product image */
+  width: 50px;
   height: auto;
 }
 
@@ -28,7 +28,6 @@
   margin-top: 20px;
 }
 
-/* Optional: styling for rows */
 .cart-table tr {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
 }
@@ -40,7 +39,7 @@
   margin-top: 30px;
   border: none;
   cursor: pointer;
-  background-color: #dd4444; /* Bootstrap primary color */
+  background-color: #dd4444;
   color: white;
   border-radius: 5px;
   font-size: 15px;
@@ -48,7 +47,7 @@
 
 .return-button:hover,
 .checkout-button:hover {
-  background-color: #bd3a3a; /* Darker shade on hover */
+  background-color: #bd3a3a;
 }
 
 .card-div {
@@ -71,10 +70,10 @@
 }
 hr {
   border: none;
-  border-top: 2px solid #ccc; /* Set thickness and color */
+  border-top: 2px solid #ccc;
   margin-top: 10px;
   margin-bottom: 5px;
-  width: 100%; /* Makes the line stretch across the container */
+  width: 100%;
 }
 
 .delete-product {

@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import { useSelector } from "react-redux";
+
 function Header() {
   const navigate = useNavigate();
+  const [activeLink, setActiveLink] = useState("/");
   const wishListSize = useSelector(
     (state) => state.wishlist?.wishList.length || 0
   );
@@ -12,23 +15,45 @@ function Header() {
     return state.cartlist?.totalQuantity || 0;
   });
 
+  const handleLinkClick = (path) => {
+    setActiveLink(path);
+    navigate(path);
+  };
+
   return (
     <>
       <div className="header">
-        <h2 onClick={() => navigate("/")} className="shopEase-link">
-          ShopEase
-        </h2>
+        <div className="logo">
+          <div className="logo-img">
+            <img src="/shopEase.svg" alt="logo" />
+          </div>
+          <h2 onClick={() => handleLinkClick("/")} className="shopEase-link">
+            ShopEase
+          </h2>
+        </div>
         <div className="pages">
-          <span onClick={() => navigate("/")} className="nav-link">
+          <span
+            onClick={() => handleLinkClick("/")}
+            className={`nav-link ${activeLink === "/" ? "active" : ""}`}
+          >
             Home
           </span>
-          <span onClick={() => navigate("/contact")} className="nav-link">
+          <span
+            onClick={() => handleLinkClick("/contact")}
+            className={`nav-link ${activeLink === "/contact" ? "active" : ""}`}
+          >
             Contact
           </span>
-          <span onClick={() => navigate("/about")} className="nav-link">
+          <span
+            onClick={() => handleLinkClick("/about")}
+            className={`nav-link ${activeLink === "/about" ? "active" : ""}`}
+          >
             About
           </span>
-          <span onClick={() => navigate("/signup")} className="nav-link">
+          <span
+            onClick={() => handleLinkClick("/signup")}
+            className={`nav-link ${activeLink === "/signup" ? "active" : ""}`}
+          >
             Sign Up
           </span>
         </div>
@@ -44,7 +69,7 @@ function Header() {
               src="/icons/Heart.png"
               alt="heart_icon"
               className="heart-icon"
-              onClick={() => navigate("/wish-list")}
+              onClick={() => handleLinkClick("/wish-list")}
             />
             {wishListSize > 0 && (
               <span className="wish-list-count">{wishListSize}</span>
@@ -53,9 +78,9 @@ function Header() {
           <div className="heart-icon-2">
             <img
               src="/icons/Cart.png"
-              alt="cart-_icon"
+              alt="cart-icon"
               className="cart-icon"
-              onClick={() => navigate("/cart-list")}
+              onClick={() => handleLinkClick("/cart-list")}
             />
             {totalQuantity > 0 && (
               <span className="cart-list-count">{totalQuantity}</span>
